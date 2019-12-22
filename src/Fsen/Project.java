@@ -2,7 +2,7 @@ package Fsen;
 
 import acptTests.auxiliary.DBSuggestedProjectInfo;
 
-public class Project {
+public class Project extends Subject{
     public static String user;
     public static String password;
     public static DBSuggestedProjectInfo Suggested;
@@ -13,5 +13,11 @@ public class Project {
         this.Suggested=Suggested;
         this.id=id;
     }
+
+    public void statusChange(){
+        notifyAll(Suggested.projectName, Suggested.description, Suggested.email,
+                "www.cs.bgu.ac.il/projects/"+Suggested.projectName);
+    }
+
 
 }

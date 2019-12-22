@@ -1,37 +1,22 @@
 package Fsen;
 
-public class Student implements Observer{
+public class Student{
     public String user;
     public String password;
-    private MessageSystem messageSystem;
 
 
-    public Student(String user, String password, MessageSystem messageSystem) {
+    public Student(String user, String password) {
         this.user = user;
         this.password = password;
-        this.messageSystem = messageSystem;
     }
 
-    private void registerForUpdates(boolean emailUpdates, boolean textMsgUpdates){
-        if (emailUpdates||textMsgUpdates){
-            if (emailUpdates){
-                messageSystem.registerForEmail(this);
-            }
-            if (textMsgUpdates){
-                messageSystem.registerForTextMsg(this);
-            }
-        }
+    public void registerForEmail(Project p){
+        new EmailObserver(p,user+"@bgu.post.ac.il");
     }
 
-    @Override
-    public void update(Message m) {
-        if (m instanceof Email){
-            System.out.println("Received an email update. ");
-        }
-        if (m instanceof TextMsg){
-            System.out.println("Received a text message update. ");
-        }
-        System.out.println("New approved project. Name: "+m.getProjectName()+", URL: "+m.getProjectURL());
+    public void registerForTextMsg(Project p, String phone){
+        new TextMsgObserver(p,phone);
     }
+
 
 }

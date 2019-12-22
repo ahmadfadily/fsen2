@@ -8,11 +8,6 @@ import bridgeProject.BridgeProject;
 
 public class Real implements BridgeProject {
 
-    private MessageSystem messageSystem;
-
-    public Real(MessageSystem messageSystem) {
-        this.messageSystem = messageSystem;
-    }
 
     @Override
     public void registerNewTechnicalAdviser(String user, String password) {
@@ -21,7 +16,7 @@ public class Real implements BridgeProject {
 
     @Override
     public void addNewStudent(String user, String password) {
-        Data.Student.add((new Student(user, password, messageSystem)));
+        Data.Student.add((new Student(user, password)));
     }
 
     @Override
@@ -42,10 +37,11 @@ public class Real implements BridgeProject {
 
         if(!Data.CheckProjectName(suggestedProject.projectName,suggestedProject.firstName,suggestedProject.organization))
             return 0;
-        Data.projects.add((new Project(user,pass,suggestedProject,Data.projects.size())));
+        Project newProj = new Project(user,pass,suggestedProject,Data.projects.size());
+        Data.projects.add(newProj);
 
-        messageSystem.projectAdded(suggestedProject.projectName,suggestedProject.description,suggestedProject.phone,
-                "www.cs.bgu.ac.il/projects/"+suggestedProject.projectName);
+        //adding observer
+        new DepartmentObserver(newProj);
         return Data.projects.size();
     }
 
