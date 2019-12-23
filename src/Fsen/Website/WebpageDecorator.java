@@ -8,7 +8,7 @@ public abstract class WebpageDecorator implements Webpage {
     }
 
     @Override
-    public String getDescription() {
-        return null;
+    public void getDescription(String test) {
+        this.tempWebpage.getDescription(test);
     }
 }

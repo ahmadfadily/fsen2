@@ -2,6 +2,6 @@ package Fsen.Website;
 
 public interface Webpage {
 
-    public String getDescription();
+    public void getDescription(String text);
 
 }
